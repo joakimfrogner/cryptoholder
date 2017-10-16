@@ -128,7 +128,7 @@ export default class MyCoins extends React.Component {
             new CryptoHolder(this.props.x_api_key).update_coin(new_coin)
             .then(result => {
                 if(result.success){
-                    fetch('https://api.coinmarketcap.com/v1/ticker/'+coin.name+'/').then(result2 => result2.json())
+                    fetch('https://api.coinmarketcap.com/v1/ticker/'+coin.cm_ID+'/').then(result2 => result2.json())
                     .then(_coindata => {
                         var coindata = _coindata[0]
     
@@ -140,7 +140,8 @@ export default class MyCoins extends React.Component {
                             percent_change_1h: coindata.percent_change_1h,
                             percent_change_24h: coindata.percent_change_24h,
                             percent_change_7d: coindata.percent_change_7d,
-                            total_usd: parseFloat(coindata.price_usd, 10) * parseFloat(total)
+                            total_usd: parseFloat(coindata.price_usd, 10) * parseFloat(total),
+                            cm_ID: coin.cm_ID
                         }
 
                         var coins = this.state.coins
@@ -176,7 +177,7 @@ export default class MyCoins extends React.Component {
             new CryptoHolder(this.props.x_api_key).update_coin(new_coin)
             .then(result => {
                 if(result.success){
-                    fetch('https://api.coinmarketcap.com/v1/ticker/'+coin.name+'/').then(result2 => result2.json())
+                    fetch('https://api.coinmarketcap.com/v1/ticker/'+coin.cm_ID+'/').then(result2 => result2.json())
                     .then(_coindata => {
                         var coindata = _coindata[0]
     
@@ -188,7 +189,8 @@ export default class MyCoins extends React.Component {
                             percent_change_1h: coindata.percent_change_1h,
                             percent_change_24h: coindata.percent_change_24h,
                             percent_change_7d: coindata.percent_change_7d,
-                            total_usd: parseFloat(coindata.price_usd, 10) * parseFloat(amount)
+                            total_usd: parseFloat(coindata.price_usd, 10) * parseFloat(amount),
+                            cm_ID: coin.cm_ID
                         }
 
                         var coins = this.state.coins
@@ -327,7 +329,11 @@ class CoinGraph extends React.Component {
     }
 
     componentDidMount(){
-        fetch("https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-"+this.props.coin.symbol+"&tickInterval=day")
+        fetch("https://cors-anywhere.herokuapp.com/https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=BTC-"+this.props.coin.symbol+"&tickInterval=day",{
+            headers: {
+                "x-requested-with": 'sdfgh'
+            }
+        })
         .then(result => result.json())
         .then(json => {
             if(json.success){
