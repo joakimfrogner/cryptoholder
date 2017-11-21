@@ -2,7 +2,8 @@ export default class CryptoHolder {
     constructor(api_token){
         this.api_token = api_token
         //this.uri = "https://cryptoholderapi.appspot.com"
-        this.uri = 'http://localhost:3000'
+        //this.uri = 'http://localhost:3000'
+        this.uri = 'http://84.209.146.237:6200'
 
         this._register_login = this._register_login.bind(this)
         this.get_my_coins = this.get_my_coins.bind(this)
