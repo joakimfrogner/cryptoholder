@@ -28,7 +28,7 @@ export default class MyCoins extends React.Component {
         new CryptoHolder(this.props.x_api_key).get_my_coins()
         .then(coins => {
             if(coins) {
-                fetch("https://api.coinmarketcap.com/v1/ticker/").then((result) => result.json())
+                fetch("https://api.coinmarketcap.com/v1/ticker/?limit=0").then((result) => result.json())
                 .then((all_coins) => {
                     for(var i=0;i<all_coins.length;i++){
                         for(var j=0;j<coins.length;j++){
